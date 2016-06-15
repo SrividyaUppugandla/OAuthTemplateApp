@@ -55,6 +55,7 @@ Authenticates the user against facebook and redirects back to application with a
 *Note: refreshToken will be available only for /twitter call. Not applicable for other providers
 
 * Example API call
+
       ```
        var url = "http://authservice.54.208.194.189.xip.io"+"/facebook?"+"callbackUrl=http://localhost:3000/callback";
        res.redirect(baseUrl);
@@ -87,6 +88,7 @@ Terminates an existing login session and redirects to the callback URL
 | Body       | {"otpCode":"79653","otpKey":"69687d70cb2503339e780f54db7a02bb958e86f84aeaa6023dc7397c531"} |
 
 * Example JSON body for request
+
       ```
        1. for sendgrid : {"channel": "sendgrid", "otp": {"otpLength": 5,"otpType": "numeric","otpExpiryTime":  4},"sendgrid": {"accountSID": "1234","authToken": "abcd","toRecipient":"someemail@gmail.com","fromMail": "someemail@gmail.com"}}
        2. for twilio : {"channel": "twilio", "otp": {"otpLength": 5,"otpType": "numeric","otpExpiryTime":  4},"twilio":{"accountSID": "hdfk6545f47d11a6a7a56","authToken": "3505f762yujy655c727fe","toRecipient": "somenumber","fromNo": "registerd_number"}}
