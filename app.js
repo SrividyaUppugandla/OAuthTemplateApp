@@ -95,7 +95,7 @@ app.get('/logout', function(req, res){
 
 
 // port
-var port = process.env.VCAP_APP_PORT || 3001;
+var port = process.env.PORT || 3001;
 app.listen(port);
 
 module.exports = app;
