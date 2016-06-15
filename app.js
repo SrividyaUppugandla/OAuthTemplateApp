@@ -18,6 +18,9 @@ app.configure(function() {
 
 });
 
+//Reading VCAP_APPLICATION information for current application URL
+var services_env = JSON.parse(process.env.VCAP_APPLICATION || "{}");
+var callbackUrl = "http://"+services_env.uris[0]+"/callback";
 
 // routes
 app.get('/', function(req, res){
@@ -36,11 +39,7 @@ app.get('/login', function(req, res){
 app.get('/OAuth', function(req, res){
     //Reading VCAP information for AuthService base URL
     var services_vcap = JSON.parse(process.env.VCAP_SERVICES || "{}");
-    var serviceUrl = services_vcap.AuthService[0].credentials.serviceUrl;
-
-    //Reading VCAP_APPLICATION information for current application URL
-    var services_env = JSON.parse(process.env.VCAP_APPLICATION || "{}");
-    var callbackUrl = "http://"+services_env.uris[0]+"/callback";
+    var serviceUrl = services_vcap.AuthService[0].credentials.serviceUrl+"/";
 
     var provider = req.query.provider;
 
@@ -85,17 +84,14 @@ app.get('/logout', function(req, res){
     var services_vcap = JSON.parse(process.env.VCAP_SERVICES || "{}");
     var serviceUrl = services_vcap.AuthService[0].credentials.serviceUrl;
 
-    //Reading VCAP_APPLICATION information for current application URL
-    var services_env = JSON.parse(process.env.VCAP_APPLICATION || "{}");
-    var callbackUrl = "http://"+services_env.uris[0]+"/callback";
-
     //Calling /logout service of AuthService
     res.redirect(serviceUrl+"/logout?callbackUrl="+callbackUrl);
 });
 
 
+
 // port
-var port = process.env.VCAP_APP_PORT || 3001;
+var port = process.env.PORT || 3001;
 app.listen(port);
 
 module.exports = app;
