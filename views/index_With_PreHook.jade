@@ -12,7 +12,7 @@ html
         var otpObj;
         $("#sendotp").click(function(){
           $.ajax({
-            url: '/generate',
+            url: '/generateOTPWithTwilio',
             type: 'POST',
             dataType: 'json',
             data: {},
@@ -29,7 +29,7 @@ html
         $("#validate").click(function(){
           var otpcode = $('input[name=otp]').val();
           $.ajax({
-            url: '/validate',
+            url: '/validateOTP',
             type: 'POST',
             dataType: 'json',
             data:{"otpCode":otpcode,"otpKey": otpObj.otpKey},
@@ -49,7 +49,7 @@ html
   body
     div
       #otp.container
-        h3 Authentication through OTP
+        h3 Pre-Hook : Authentication through OTP
 
         button#sendotp Send Otp
 
@@ -60,21 +60,21 @@ html
         br
 
       #providers.container
-        h1 OAuth Social Authentication.
+        h1 OAuth Social Authentication
 
         p.lead Please login with the following provider options.
         if config.facebook
           a(href='/auth/facebook') Login via Facebook
-        br
+          br
         if config.twitter
           a(href='/auth/twitter') Login via Twitter
-        br
+          br
         if config.google
           a(href='/auth/google') Login via Google
-        br
+          br
         if config.linkedin
           a(href='/auth/linkedin') Login via LinkedIn
-        br
+          br
         if config.github
           a(href='/auth/github') Login via github
 

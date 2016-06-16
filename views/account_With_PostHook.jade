@@ -12,7 +12,7 @@ html
         var otpObj;
         $("#sendotp").click(function(){
           $.ajax({
-            url: '/generate',
+            url: '/generateOTPWithSendGrid',
             type: 'POST',
             dataType: 'json',
             data: {},
@@ -28,7 +28,7 @@ html
         $("#validate").click(function(){
           var otpcode = $('input[name=otp]').val();
           $.ajax({
-            url: '/validate',
+            url: '/validateOTP',
             type: 'POST',
             dataType: 'json',
             data:{"otpCode":otpcode,"otpKey": otpObj.otpKey},
@@ -51,7 +51,7 @@ html
     p.lead Welcome #{user.displayName}!
     a(href='/logout') Logout
   #otp.container
-    h3 Authentication through OTP
+    h3 Post-Hook : Authentication through OTP
     button#sendotp(align='center') Send Otp
     #validatediv.container
       input#inputotp(type='text', placeholder='otp', name='otp', required='required')

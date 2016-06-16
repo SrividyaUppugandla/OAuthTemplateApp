@@ -6,8 +6,9 @@
 
 File | Description
 :-- | :-- 
-app.js | This file does all the bootstrapping by require-ing all the controllers, models and middlewares. Configures the port and domain, starts the application on the available or given port.
-config.js | Configuration of API and Secret keys of the providers.
+src/app.js | This file does all the bootstrapping by require-ing all the controllers, models and middlewares. Configures the port and domain, starts the application on the available or given port.
+src/config.js | Sample config file to check which providers are enabled.
+src/hook.js | config file to refer for sendgrid and twilio account details.
 views/ | Contains the jade view files for different scenarios.
 package.json | All npm packages contain a file, this file holds various metadata relevant to the project.
 
@@ -93,7 +94,7 @@ Terminates an existing login session and redirects to the callback URL
        1. for sendgrid : {"channel": "sendgrid", "otp": {"otpLength": 5,"otpType": "numeric","otpExpiryTime":  4},"sendgrid": {"accountSID": "1234","authToken": "abcd","toRecipient":"someemail@gmail.com","fromMail": "someemail@gmail.com"}}
        2. for twilio : {"channel": "twilio", "otp": {"otpLength": 5,"otpType": "numeric","otpExpiryTime":  4},"twilio":{"accountSID": "hdfk6545f47d11a6a7a56","authToken": "3505f762yujy655c727fe","toRecipient": "somenumber","fromNo": "registerd_number"}}
       ```
-* Note : Default values for otpLength, otpType and otpExpiryTime are 4, numeric and 10 respectively
+* Note : Default values for otpLength, otpType and otpExpiryTime are 4, numeric and 10 respectively. otpType can be of numeric or alpha or alphanumeric
 
 ## POST /validate
 - This API validates the requested OTP.
@@ -108,3 +109,20 @@ Terminates an existing login session and redirects to the callback URL
 |------------|---------------------------------------------|
 | Body       | {"status":"OTP is validated successfully"}  |
 
+
+## Sample UI for testing pre-hook and post-hook
+- Pre Hook
+
+      ```
+       1. By default index.jade is used for login. Render to index_With_PreHook.jade from /login to show some sample UI to generate OTP as pre hook
+       2. Modify ajax call URL in index_With_PreHook.jade to use either sendgrid or twilio. /generateOTPWithTwilio to use twilio and /generateOTPWithSendGrid to use sendgrid (url: '/generateOTPWithTwilio' or url: '/generateOTPWithTwilio')
+       3. Modify src/hook.json for twilio and sendgrid details
+      ```
+
+- Post Hook
+
+      ```
+       1. By default account.jade is used to show some account information. Render to account_With_PostHook.jade from /callback to show some sample UI to generate OTP as post hook
+       2. Modify ajax call URL in account_With_PostHook.jade to use either sendgrid or twilio. /generateOTPWithTwilio to use twilio and /generateOTPWithSendGrid to use sendgrid (url: '/generateOTPWithTwilio' or url: '/generateOTPWithTwilio')
+       3. Modify src/hook.json for twilio and sendgrid details
+      ```
