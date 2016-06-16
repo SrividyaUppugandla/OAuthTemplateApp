@@ -93,6 +93,7 @@ Terminates an existing login session and redirects to the callback URL
        1. for sendgrid : {"channel": "sendgrid", "otp": {"otpLength": 5,"otpType": "numeric","otpExpiryTime":  4},"sendgrid": {"accountSID": "1234","authToken": "abcd","toRecipient":"someemail@gmail.com","fromMail": "someemail@gmail.com"}}
        2. for twilio : {"channel": "twilio", "otp": {"otpLength": 5,"otpType": "numeric","otpExpiryTime":  4},"twilio":{"accountSID": "hdfk6545f47d11a6a7a56","authToken": "3505f762yujy655c727fe","toRecipient": "somenumber","fromNo": "registerd_number"}}
       ```
+* Note : Default values for otpLength, otpType and otpExpiryTime are 4, numeric and 10 respectively
 
 ## POST /validate
 - This API validates the requested OTP.
