@@ -64,17 +64,17 @@ html
 
         p.lead Please login with the following provider options.
         if config.facebook
-          a(href='/auth/facebook') Login via Facebook
+          a(href='/OAuth?provider=facebook') Login via Facebook
           br
         if config.twitter
-          a(href='/auth/twitter') Login via Twitter
+          a(href='/OAuth?provider=twitter') Login via Twitter
           br
         if config.google
-          a(href='/auth/google') Login via Google
+          a(href='/OAuth?provider=google') Login via Google
           br
         if config.linkedin
-          a(href='/auth/linkedin') Login via LinkedIn
+          a(href='/OAuth?provider=linkedin') Login via LinkedIn
           br
         if config.github
-          a(href='/auth/github') Login via github
+          a(href='/OAuth?provider=github') Login via github
 
