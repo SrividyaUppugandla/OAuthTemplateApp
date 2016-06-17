@@ -32,7 +32,7 @@ app.get('/', function(req, res){
 // GET /login
 //  Login page to show the provider options to login
 app.get('/login', function(req, res){
-    res.render('index', { title: "OAuth Authentication", config: config, serviceUrl:"http://localhost:3001"});
+    res.render('index', { title: "OAuth Authentication", config: config});
 });
 
 // GET /OAuth
@@ -74,7 +74,7 @@ app.get('/callback', function(req, res){
         res.render('account', { user: profile });
     }
     else {
-        res.render('index', { title: "OAuth Authentication", config: config});
+        res.redirect('/');
     }
 
 });
