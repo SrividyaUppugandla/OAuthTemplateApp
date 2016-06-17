@@ -32,7 +32,7 @@ app.get('/', function(req, res){
 // GET /login
 //  Login page to show the provider options to login
 app.get('/login', function(req, res){
-    res.render('index', { title: "OAuth Authentication", config: config});
+    res.render(hookConfig.prehooktemplate, { title: "OAuth Authentication", config: config});
 });
 
 // GET /OAuth
@@ -71,7 +71,7 @@ app.get('/callback', function(req, res){
             displayName : req.query.displayName
         }
 
-        res.render('account', { user: profile });
+        res.render(hookConfig.posthooktemplate, { user: profile });
     }
     else {
         res.redirect('/');
@@ -93,7 +93,8 @@ app.get('/logout', function(req, res){
 // POST /generateOTPWithTwilio
 //  Refer hook.json and update the values for twilio key.
 //  This API will hit the /generate method of authentication service with the required twilio JSON body.
-//  For UI sample this method is called from index_With_PreHook.jade file. Render to this jade file instead of index.jade to check
+//  For UI sample this method is called from index_With_PreHook.jade file. Render to this jade file instead of index.jade to check. 
+//  Edit hook.json for prehook and posthook templates as values index_With_PreHook and account_With_PostHook
 app.post("/generateOTPWithTwilio", function(req, res){
     var services_vcap = JSON.parse(process.env.VCAP_SERVICES || "{}");
     var serviceUrl = services_vcap.AuthService[0].credentials.serviceUrl+"/generate";
@@ -118,6 +119,7 @@ app.post("/generateOTPWithTwilio", function(req, res){
 //  Refer hook.json and update the values for sendgrid key.
 //  This API will hit the /generate method of authentication service with the required sendgrid JSON body.
 //  For UI sample this method is called from account_With_PostHook.jade file. Render to this jade file instead of account.jade to check
+//  Edit hook.json for prehook and posthook templates as values index_With_PreHook and account_With_PostHook
 app.post("/generateOTPWithSendGrid", function(req, res){
     var services_vcap = JSON.parse(process.env.VCAP_SERVICES || "{}");
     var serviceUrl = services_vcap.AuthService[0].credentials.serviceUrl+"/generate";
@@ -167,4 +169,3 @@ var port = process.env.PORT || 3001;
 app.listen(port);
 
 module.exports = app;
-
