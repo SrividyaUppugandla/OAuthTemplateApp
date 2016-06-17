@@ -7,8 +7,8 @@
 File | Description
 :-- | :-- 
 src/app.js | This file does all the bootstrapping by require-ing all the controllers, models and middlewares. Configures the port and domain, starts the application on the available or given port.
-src/config.js | Sample config file to check which providers are enabled.
-src/hook.js | config file to refer for sendgrid and twilio account details.
+src/config.json | Sample config file to check which providers are enabled.
+src/hook.json | config file to refer for sendgrid and twilio account details.
 views/ | Contains the jade view files for different scenarios.
 package.json | All npm packages contain a file, this file holds various metadata relevant to the project.
 
