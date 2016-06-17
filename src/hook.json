@@ -26,5 +26,7 @@
       "toRecipient": "",
       "fromMail": ""
     }
-  }
+  },
+  "prehooktemplate": "index",
+  "posthooktemplate": "account"
 }
