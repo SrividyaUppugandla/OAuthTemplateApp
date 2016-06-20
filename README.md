@@ -114,7 +114,7 @@ Terminates an existing login session and redirects to the callback URL
 - Pre Hook
 
       ```
-       1. By default index.jade is used for login. Render to index_With_PreHook.jade from /login to show some sample UI to generate OTP as pre hook. Modify src/hook.json key "prehook" as "index_With_PreHook"
+       1. By default index.jade is used for login. Render to index_With_PreHook.jade from /login to show some sample UI to generate OTP as pre hook. Modify src/hook.json key "prehooktemplate" as "index_With_PreHook"
        2. Modify ajax call URL in index_With_PreHook.jade to use either sendgrid or twilio. /generateOTPWithTwilio to use twilio and /generateOTPWithSendGrid to use sendgrid (url: '/generateOTPWithTwilio' or url: '/generateOTPWithTwilio')
        3. Modify src/hook.json for twilio and sendgrid details
       ```
@@ -122,7 +122,7 @@ Terminates an existing login session and redirects to the callback URL
 - Post Hook
 
       ```
-       1. By default account.jade is used to show some account information. Render to account_With_PostHook.jade from /callback to show some sample UI to generate OTP as post hook.  Modify src/hook.json key "posthook" as "account_With_PostHook"
+       1. By default account.jade is used to show some account information. Render to account_With_PostHook.jade from /callback to show some sample UI to generate OTP as post hook.  Modify src/hook.json key "posthooktemplate" as "account_With_PostHook"
        2. Modify ajax call URL in account_With_PostHook.jade to use either sendgrid or twilio. /generateOTPWithTwilio to use twilio and /generateOTPWithSendGrid to use sendgrid (url: '/generateOTPWithTwilio' or url: '/generateOTPWithTwilio')
        3. Modify src/hook.json for twilio and sendgrid details
       ```
