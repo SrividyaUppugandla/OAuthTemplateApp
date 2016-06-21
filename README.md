@@ -2,6 +2,30 @@
 
 ## Developer can leverage this template application code, modify according to their business functionality and can push to PaaS platform.
 
+### Template application File Structure
+  ```
+  +-- name
+  ¦      +-- public
+  ¦      ¦   +-- css
+  ¦      ¦   	    +-- bootstrap.min.css
+  ¦      ¦            +-- font-awesome.min.css
+  ¦      ¦            +-- main.css
+  ¦      ¦   +-- js
+  ¦      ¦   	    +-- bootstrap.min.js
+  ¦       ¦           +-- main.js
+  ¦      +-- src
+  ¦      ¦   +-- app.js
+  ¦      ¦   +-- config.json
+  ¦      ¦   +-- hook.json
+  ¦      +-- views
+  ¦      ¦   +-- account.jade
+  ¦      ¦   +-- account_With_PostHook.jade
+  ¦      ¦   +-- index.jade
+  ¦      ¦   +-- index_With_PreHook.jade
+  +-- package.json
+  
+```
+
 ### Template application files
 
 File | Description
