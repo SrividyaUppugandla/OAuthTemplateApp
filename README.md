@@ -1,6 +1,6 @@
-# Node JS template application for OAuth2.0 authentication.
+# Node JS template application for OAuth
 
-## Developer can leverage this template application code, modify according to their business functionality and can push to PaaS platform.
+This is a sample application where the developer can start building the application using the OAuth microservice. This application provides a sample user interface, implementation of the login and the data hooks configured in the UI. The developer can modify the UI and add the required business functionality and can push and restage the application into target PaaS platform.  The OAuth microservice expose API end points methods where the developer can login, logout, send and validate the OTP using Twilio or Sendgrid
 
 ### Template application files
 
@@ -20,8 +20,7 @@ package.json | All npm packages contain a file, this file holds various metadata
       ```
        serviceUrl: Base URL for authentication service.
        *provider*_callback: This URL is the provider callback URL. Configure this URL as redirect URI in the provider app configuration. Keys will be in the form of facebook_callback, google_callback, linkedin_callback, twitter_callback
-       clientID: This ID is required for consuming the authentication services APIs
-       clientSecret: This Secret key is required for consuming the authentication services APIs. Do not share this key, keep it confidential
+       apiKey: This Secret key is required for consuming the authentication services APIs. Do not share this key, keep it confidential
       ```
 
 ### Application execution
@@ -41,7 +40,7 @@ package.json | All npm packages contain a file, this file holds various metadata
 ## Authentication Service API
 
 ## GET /facebook, /google, /twitter, /linkedin
-Authenticates the user against facebook and redirects back to application with accessToken and profile information.
+Authenticates the user against requested provider and redirects back to application with a code.
 
 ### Request
 | Query Param  |                  Description                                                          |
@@ -49,18 +48,32 @@ Authenticates the user against facebook and redirects back to application with a
 | callbackUrl  | callbackUrl to where Authentication service needs to redirect after authentication    |
 
 ### Response
-| HTTP           |      Value                                                                                                     |
-|----------------|----------------------------------------------------------------------------------------------------------------|
-| query params   | accessToken=eyJ0eXAiOiJKV1...&id=123456..&displayName=Johnson&provider=twitter&refreshToken=ciOiJIU...         |
-
-*Note: refreshToken will be available only for /twitter call. Not applicable for other providers
+| HTTP           |      Value                           |
+|----------------|--------------------------------------|
+| query params   | code=eyJ0eXAiOiJKV1dfgdfg5fggyhh...  |
 
 * Example API call
 
       ```
        var url = "http://authservice.54.208.194.189.xip.io"+"/facebook?"+"callbackUrl=http://localhost:3000/callback";
-       res.redirect(baseUrl);
+       res.redirect(url);
       ```
+
+## POST /account
+This API retrieves the account details of the logged in user. Request parameters of the body are code(received from /facebook, /google, /twitter, /linkedin in callback) and apiKey
+
+### Request
+| HTTP       |                             Value                                           |
+|------------|-----------------------------------------------------------------------------|
+| Body       | {"code":"eyJ0eXAiOiJKV1dfgdfg5fggyhh...","apiKey":"YOUR_API_KEY_FROM_VCAP"} |
+
+### Response
+| HTTP       |  Value                                                               |
+|------------|----------------------------------------------------------------------|
+| Body       | {"accessToken":"Rcp4xZC06HnmcFMaW866wS9KSK4bCjxBQB2UTPfVbOJH","id":"607861336036","displayName":"John Doe","provider":"facebook"}|
+
+*Note: refreshToken will be available only for /twitter call. Not applicable for other providers
+
 
 ## GET /logout
 Terminates an existing login session and redirects to the callback URL
@@ -97,7 +110,7 @@ Terminates an existing login session and redirects to the callback URL
 * Note : Default values for otpLength, otpType and otpExpiryTime are 4, numeric and 10 respectively. otpType can be of numeric or alpha or alphanumeric
 
 ## POST /validate
-- This API validates the requested OTP.
+- This API validates the requested OTP. Response of /generate API is the body request for this API
 
 ### Request
 | HTTP       |                             Value                                                          |
@@ -108,6 +121,20 @@ Terminates an existing login session and redirects to the callback URL
 | HTTP       |  Value                                      |
 |------------|---------------------------------------------|
 | Body       | {"status":"OTP is validated successfully"}  |
+
+
+## POST /saveLog
+- This API saves logs to Graylog server or MongoDB based on the user choice.
+
+### Request
+| HTTP       |                             Value                                                          |
+|------------|--------------------------------------------------------------------------------------------|
+| Body       | {"level":"INFO","message":"Info message", "appid":"OneC"} |
+
+### Response
+| HTTP       |  Value                                      |
+|------------|---------------------------------------------|
+| Body       | {"status":"success", "message":"Successfully sent to Graylog server"}|
 
 
 ## Sample UI for testing pre-hook and post-hook
